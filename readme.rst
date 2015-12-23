@@ -6,8 +6,8 @@ Chromaprint portable playlist examples
 What this is
 ------------
 
-This is an extension of the XML Shareable Playlist Format
-to include Chromaprint acoustic fingerprints.
+This is an extension of the `XML Shareable Playlist Format`_
+to include `Chromaprint acoustic fingerprints`_.
 
 It includes an example of a valid XML shareable playlist:
 
@@ -19,6 +19,9 @@ and a valid JSON shareable playlist:
 
 They have no ``location`` field,
 but instead a Chromaprint acoustic fingerprint.
+
+.. _XML Shareable Playlist Format: http://xspf.org/
+.. _Chromaprint acoustic fingerprints: https://acoustid.org/chromaprint
 
 ----------
 Motivation
@@ -64,8 +67,7 @@ Unfortunately, there is no fully functional content resolver available yet.
 Part of the trouble is that quality and consistency of metadata varies wildly,
 so resolvers have to guess if a given song is a correct match.
 
-Relying on song length
-or a combination of track title, artist, and album
+Relying solely on length of song
 can cause collisions (false matches to the wrong song).
 
 On the other hand, songs have multiple versions
@@ -74,14 +76,20 @@ and multiple formats (MP3, OGG, FLAC, AAC, etc.)
 so relying on SHA1 hashes or other byte-level checksums
 causes the opposite problem (false negatives).
 
-Fortunately, `acoustic fingerprints`_ provide a format-independent identifier,
-and the Chromaprint algorithm has an open-source implementation
+The combination of track title, artist, and album is usually unique,
+but many songs are released on multiple different albums
+and artist metadata can also vary,
+so this can cause either false positives or false negatives.
+
+Fortunately, `acoustic fingerprints`_ provide an identifier
+that does not depend on metadata and is robust against change of format.
+The Chromaprint algorithm has an open-source implementation
 which is in widespread use by the MusicBrainz/AcoustID project.
 
 https://acoustid.org/chromaprint
 
 A Chromaprint is a list of signed 32-bit integers
-(encoded as Base64 to save characters).
+(encoded as Base64 to save characters)
 so determining if a song is the same (or close enough)
 becomes much easier.
 
